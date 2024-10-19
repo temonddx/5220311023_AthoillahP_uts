@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p>Pilih gambar:</p>
+<img id="gambar" src="..." alt="..." width="220" height="227">
+<p>Mengisi :</p>
+<canvas id="kanvas" widht="220" height="400"
+style="border:1px" solid #d3d3d3;>
+your browser dooes not support the HTML5 canvas tag.</canvas>
+
+<p><button onclick="kanvas()">Try it</button></p>
+<script>
+function kanvas(){
+    var c = documen.getElementById("kanvas");
+    var ctx = c.getContext("2d");
+    var img =  document.getElementById("gambar");
+    ctx.drawImage(img,10,10);
+}
+</script>
+</body>
+</html>

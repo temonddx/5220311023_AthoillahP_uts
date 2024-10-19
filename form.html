@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <!-- Menambahkan style CSS untuk tampilan form -->
+    <style>
+        /* Pengaturan tampilan body agar form berada di tengah halaman */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #05284E;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Pengaturan container form login */
+        .login-container {
+            background-color: #ffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Pengaturan judul form */
+        .login-container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Pengaturan input text dan password */
+        .login-container input[type="text"],
+        .login-container input[type="password"],
+        .login-container input[type="email"] {
+            width: 100%; /* Lebar input 100% dari parent container */
+            padding: 10px; /* Padding dalam input */
+            margin: 10px 0; /* Jarak antar input */
+            border: 1px solid #ccc; /* Border abu-abu pada input */
+            border-radius: 4px; /* Membuat sudut input melengkung */
+        }
+
+        /* Pengaturan tombol submit dan reset */
+        .login-container input[type="submit"],
+        .login-container input[type="reset"] {
+            width: 30%; /* Lebar tombol */
+            padding: 10px;
+            border: none; /* Menghilangkan border default pada tombol */
+            border-radius: 4px; /* Membuat sudut tombol melengkung */
+            background-color: #4CAF50; /* Warna latar tombol submit hijau */
+            color: white; /* Warna teks tombol putih */
+            cursor: pointer; /* Menampilkan pointer saat tombol di-hover */
+            margin-top: 10px;
+        }
+
+        /* Pengaturan warna tombol reset (warna merah) */
+        .login-container input[type="reset"] {
+            background-color: #f44336;
+        }
+
+        /* Efek hover saat tombol diklik */
+        .login-container input[type="submit"]:hover,
+        .login-container input[type="reset"]:hover {
+            opacity: 0.9; /* Mengubah transparansi saat hover */
+        }
+
+        /* Tombol register */
+        .login-container .register-btn {
+            width: 30%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #008CBA; /* Warna latar tombol register biru */
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .login-container .register-btn:hover {
+            opacity: 0.9; /* Mengubah transparansi saat hover */
+        }
+
+        /* Pengaturan tombol container */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Style untuk modal form registrasi */
+        .modal {
+            display: none; /* Awalnya modal tidak ditampilkan */
+            position: fixed; /* Tetap di layar */
+            z-index: 1; /* Di atas konten lainnya */
+            left: 0;
+            top: 0;
+            width: 100%; /* Lebar penuh */
+            height: 100%; /* Tinggi penuh */
+            background-color: rgba(0, 0, 0, 0.4); /* Warna latar belakang hitam transparan */
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px; /* Ukuran maksimal modal */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Pengaturan input dalam modal form registrasi */
+        .modal-content input[type="text"],
+        .modal-content input[type="password"],
+        .modal-content input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Pengaturan tombol submit di dalam form registrasi */
+        .modal-content input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .modal-content input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Style untuk pesan sukses setelah registrasi */
+        .success-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 10px;
+            border: 1px solid #d6e9c6;
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <!-- Container utama untuk form login -->
+    <div class="login-container">
+        <h2>Login</h2>
+        <!-- Form login, method POST digunakan untuk mengirim data secara aman -->
+        <form action="/login" method="POST">
+            <!-- Input username -->
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <!-- Input email -->
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <!-- Input password -->
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <!-- Tombol submit, reset, dan register -->
+            <div class="button-container">
+                <input type="submit" value="Login"> <!-- Tombol submit untuk login -->
+                <input type="reset" value="Reset"> <!-- Tombol reset untuk mengosongkan input -->
+                <!-- Tombol register untuk membuka modal -->
+                <button type="button" class="register-btn" onclick="document.getElementById('registerModal').style.display='block'">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal untuk form registrasi -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('registerModal').style.display='none'">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <!-- Input nama -->
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <!-- Input username -->
+                <label for="reg-username">Username:</label>
+                <input type="text" id="reg-username" name="username" required>
+                <!-- Input email -->
+                <label for="reg-email">Email:</label>
+                <input type="email" id="reg-email" name="email" required>
+                <!-- Input password -->
+                <label for="reg-password">Password:</label>
+                <input type="password" id="reg-password" name="password" required>
+                <!-- Input konfirmasi password -->
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <!-- Tombol submit -->
+                <input type="submit" value="Register">
+            </form>
+            <!-- Pesan sukses -->
+            <div class="success-message" id="successMessage">
+                Registration successful! You can now log in.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tutup modal saat pengguna mengklik di luar modal
+        window.onclick = function(event) {
+            var modal = document.getElementById('registerModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Simulasi keterangan saat form registrasi berhasil dikirim
+        document.getElementById("registerForm").onsubmit = function(event) {
+            event.preventDefault(); // Mencegah pengiriman form sebenarnya
+            document.getElementById("successMessage").style.display = "block"; // Tampilkan pesan sukses
+        }
+    </script>
+
+</body>
+</html>
